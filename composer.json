@@ -1,0 +1,17 @@
+{
+  "name": "nessworthy/advent-of-code-2019",
+  "description": "",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Sean Nessworthy",
+      "email": "sean@nessworthy.me"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Nessworthy\\AOC\\": "src/"
+    }
+  }
+}
