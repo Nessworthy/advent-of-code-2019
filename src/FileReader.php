@@ -17,7 +17,7 @@ class FileReader
             if ($line === false) {
                 break;
             }
-            return self::format($line, $format);
+            yield self::format($line, $format);
         }
         fclose($resource);
     }
@@ -28,11 +28,11 @@ class FileReader
     {
         switch($format) {
             case self::AS_INTEGER:
-                yield (int) $string;
+                return (int) $string;
                 break;
             case self::AS_STRING;
             default:
-                yield $string;
+                return $string;
                 break;
         }
     }
