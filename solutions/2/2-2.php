@@ -24,7 +24,7 @@ $found = false;
 
 echo 'Min - Max (Current) = (Noun/Verb) = Result' . "\n";
 
-$program = new IntCodeParser();
+$program = IntCodeParser::forDayTwo();
 
 while (!$found) {
     $current = $min + (int) floor(($max - $min) / 2);
@@ -33,6 +33,7 @@ while (!$found) {
     $bagsCopy = $bags;
     $bagsCopy[1] = (int) $noun;
     $bagsCopy[2] = (int) $verb;
+
     $value = $program->execute($bagsCopy);
 
     echo sprintf('%s - %s (%s) = (%s/%s) = %s', $min, $max, $current, $noun, $verb, $value) . "\n";

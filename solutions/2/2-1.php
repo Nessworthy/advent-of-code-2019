@@ -12,7 +12,7 @@ $verb = 2;
 $intCodes[1] = $noun;
 $intCodes[2] = $verb;
 
-$machine = new IntCodeParser();
+$machine = IntCodeParser::forDayTwo();
 $output = $machine->execute($intCodes);
 
 echo $output;
