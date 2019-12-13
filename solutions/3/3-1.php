@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
 use Nessworthy\AOC\FileReader;
+use Nessworthy\AOC\Three\Mover;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
@@ -15,40 +16,6 @@ $directionWayMatrix = [
     'R' => -1
 ];
 
-
-class Mover
-{
-    private array $directionAxisMatrix = [];
-    private array $directionWayMatrix = [];
-
-    public const X = 0;
-    public const Y = 1;
-
-    public const FORWARDS = 1;
-    public const BACKWARDS = -1;
-
-    public function registerMovement(string $command, int $axis, int $direction): void
-    {
-        $this->directionAxisMatrix[$command] = $axis;
-        $this->directionWayMatrix[$command] = $direction;
-    }
-
-    public function move(array $coordinates, string $command, int $distance): Generator
-    {
-        $axis = $this->directionAxisMatrix[$command];
-        $way = $this->directionWayMatrix[$command];
-
-        $lineStart = $coordinates[$axis];
-        $lineEnd = $lineStart + ($distance * $way);
-
-        $increment = 1 * $way;
-
-        for ($lineCurrent = $lineStart + $increment; $lineCurrent !== $lineEnd + $increment; $lineCurrent += $increment) {
-            $coordinates[$axis] = $lineCurrent;
-            yield $coordinates;
-        }
-    }
-}
 
 $mover = new Mover();
 $mover->registerMovement('U', Mover::Y, Mover::FORWARDS);
