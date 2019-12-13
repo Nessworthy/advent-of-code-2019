@@ -1,43 +1,8 @@
 <?php declare(strict_types=1);
 
+use Nessworthy\AOC\Two\IntCodeParser;
+
 require_once __DIR__ . '/../../vendor/autoload.php';
-
-function bag_generator(array &$items)
-{
-    $pointer = 0;
-    while ($pointer < count($items)) {
-        yield [
-            $items[$pointer],
-            $items[$pointer + 1],
-            $items[$pointer + 2],
-            $items[$pointer + 3]
-        ];
-        $pointer += 4;
-    }
-}
-
-function run_program($bag, $noun, $verb): int
-{
-    $bag[1] = $noun;
-    $bag[2] = $verb;
-
-    foreach (bag_generator($bag) as $items) {
-        switch ($items[0]) {
-            case 1:
-                $bag[$items[3]] = $bag[$items[1]] + $bag[$items[2]];
-                break;
-            case 2:
-                $bag[$items[3]] = $bag[$items[1]] * $bag[$items[2]];
-                break;
-            case 99;
-                break 2;
-            default:
-                throw new RuntimeException('Hit an unexpected int code!');
-        }
-    }
-
-    return (int) $bag[0];
-}
 
 function answer($noun, $verb) {
     echo 100 * $noun + $verb;
@@ -59,10 +24,16 @@ $found = false;
 
 echo 'Min - Max (Current) = (Noun/Verb) = Result' . "\n";
 
+$program = new IntCodeParser();
+
 while (!$found) {
     $current = $min + (int) floor(($max - $min) / 2);
     [$noun, $verb] = convert_to_noun_and_verb($current);
-    $value = run_program($bags, $noun, $verb);
+
+    $bagsCopy = $bags;
+    $bagsCopy[1] = (int) $noun;
+    $bagsCopy[2] = (int) $verb;
+    $value = $program->execute($bagsCopy);
 
     echo sprintf('%s - %s (%s) = (%s/%s) = %s', $min, $max, $current, $noun, $verb, $value) . "\n";
 
