@@ -1,12 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Nessworthy\AOC\Two\Instruction;
+namespace Nessworthy\AOC\Five\Instruction;
 
 use Nessworthy\AOC\Two\Instruction;
 use Nessworthy\AOC\Two\Order;
 use Nessworthy\AOC\Two\Parameter;
 
-class Add implements Instruction
+class LessThan implements Instruction
 {
     public function getParameterCount(): int
     {
@@ -15,7 +15,7 @@ class Add implements Instruction
 
     public function execute(Parameter ...$parameters): Order
     {
-        [$a, $b, $outputLocation] = $parameters;
-        return new Order\WriteToCodeLocation($outputLocation->getCode(), $a->getValue() + $b->getValue());
+        [$a, $b, $location] = $parameters;
+        return new Order\WriteToCodeLocation($location->getCode(),$a->getValue() < $b->getValue() ? 1 : 0);
     }
 }

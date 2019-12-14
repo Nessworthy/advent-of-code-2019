@@ -4,5 +4,5 @@ namespace Nessworthy\AOC\Two;
 
 interface Order
 {
-    public function execute(&$program): void;
+    public function execute(&$program, PointerControl $pointer): void;
 }

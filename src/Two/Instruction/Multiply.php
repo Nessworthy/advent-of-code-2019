@@ -16,6 +16,6 @@ class Multiply implements Instruction
     public function execute(Parameter ...$parameters): Order
     {
         [$a, $b, $outputLocation] = $parameters;
-        return new Order\WriteToLocation($outputLocation->getCode(), $a->getValue() * $b->getValue());
+        return new Order\WriteToCodeLocation($outputLocation->getCode(), $a->getValue() * $b->getValue());
     }
 }

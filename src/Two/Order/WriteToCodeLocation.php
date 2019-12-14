@@ -3,8 +3,9 @@
 namespace Nessworthy\AOC\Two\Order;
 
 use Nessworthy\AOC\Two\Order;
+use Nessworthy\AOC\Two\PointerControl;
 
-class WriteToLocation implements Order
+class WriteToCodeLocation implements Order
 {
     /**
      * @var int
@@ -21,7 +22,7 @@ class WriteToLocation implements Order
         $this->value = $value;
     }
 
-    public function execute(&$program): void
+    public function execute(&$program, PointerControl $pointer): void
     {
         $program[$this->location] = $this->value;
     }

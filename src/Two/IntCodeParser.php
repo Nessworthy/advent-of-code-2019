@@ -22,12 +22,12 @@ class IntCodeParser
      */
     private array $registeredOperations;
 
-    private function createIntCodeGenerator(array &$items): Generator
+    private function createIntCodeGenerator(array &$items, PointerControl $pointerControl): Generator
     {
         $pointer = 0;
         while ($pointer < count($items)) {
-            yield $items[$pointer];
-            ++$pointer;
+            yield $pointer => $items[$pointer];
+            $pointer = $pointerControl->nextPosition();
         }
     }
 
@@ -44,11 +44,12 @@ class IntCodeParser
      */
     public function execute(array $intCodes): int
     {
-        $intCodeGenerator = $this->createIntCodeGenerator($intCodes);
+        $intCodePointer = new PointerControl();
+        $intCodeGenerator = $this->createIntCodeGenerator($intCodes, $intCodePointer);
 
-        foreach ($intCodeGenerator as $commandData) {
+        foreach ($intCodeGenerator as $pointer => $rawIntCode) {
 
-            $commandData = new Command($commandData);
+            $commandData = new Command($rawIntCode);
 
             $OPCode = $commandData->getOPCode();
 
@@ -59,13 +60,15 @@ class IntCodeParser
             $operation = $this->registeredOperations[$OPCode];
 
             $parameterCount = $operation->getParameterCount();
-            $parameters = $this->readNextCodes($parameterCount, $intCodeGenerator);
+            $parameters = $this->getNextNIntCodes($parameterCount, $intCodeGenerator);
 
-            $parameterValues = $this->createOperationParameters($intCodes, $parameters, $commandData);
+            // Provides support for parameter modes.
+            $operationParameters = $this->createOperationParameters($intCodes, $parameters, $commandData);
 
-            $programCommand = $operation->execute(...$parameterValues);
+            $programCommand = $operation->execute(...$operationParameters);
 
-            $programCommand->execute($intCodes);
+            // TODO: Could be much better with objects & returns.
+            $programCommand->execute($intCodes, $intCodePointer);
 
             if ($programCommand instanceof TerminatingOrder) {
                 break;
@@ -74,7 +77,7 @@ class IntCodeParser
         return $intCodes[0];
     }
 
-    private function readNextCodes(int $codes, Generator $generator): array
+    private function getNextNIntCodes(int $codes, Generator $generator): array
     {
         $return = [];
         for ($current = 0; $current < $codes; ++$current) {

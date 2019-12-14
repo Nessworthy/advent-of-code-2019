@@ -33,6 +33,6 @@ class Command
 
     public function getParameterMode(int $parameter): int
     {
-        return (2 ** $parameter) & $this->modes;
+        return ((2 ** $parameter) & $this->modes) ? 1 : 0;
     }
 }
