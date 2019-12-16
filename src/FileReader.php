@@ -17,7 +17,7 @@ class FileReader
             if ($line === false) {
                 break;
             }
-            yield self::format($line, $format);
+            yield self::format(trim($line), $format);
         }
         fclose($resource);
     }
