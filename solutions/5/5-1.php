@@ -11,7 +11,7 @@ $intCodes = array_map(fn($i) => (int)$i, explode(',', file_get_contents('input.t
 $input = new Input(1);
 $output = new Output();
 
-$machine = IntCodeParser::forDayFivePartOne($input, $output);
+$machine = IntCodeParser::versionTwo($input, $output);
 $machine->execute($intCodes);
 
 echo 'DIAGNOSTICS COMPLETE' . "\n";

@@ -116,7 +116,11 @@ class IntCodeParser
         return $parameterValues;
     }
 
-    public static function forDayTwo(): IntCodeParser
+    /**
+     * Day 2 both pts
+     * @return IntCodeParser
+     */
+    public static function versionOne(): IntCodeParser
     {
         $program = new self();
         $program->registerInstruction(1, new Add());

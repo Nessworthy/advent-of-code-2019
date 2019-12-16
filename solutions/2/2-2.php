@@ -24,7 +24,7 @@ $found = false;
 
 echo 'Min - Max (Current) = (Noun/Verb) = Result' . "\n";
 
-$program = IntCodeParser::forDayTwo();
+$program = IntCodeParser::versionOne();
 
 while (!$found) {
     $current = $min + (int) floor(($max - $min) / 2);
