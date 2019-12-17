@@ -7,10 +7,11 @@ use Nessworthy\AOC\Five\System\Output;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 
-$promise = [];
+$psg = new PhaseSettingGenerator();
+$generator = $psg->generateCombinations();
 $highest = 0;
 
-foreach ($promise as $phaseSettingCombination) {
+foreach ($generator as $phaseSettingCombination) {
     $value = 0;
     foreach ($phaseSettingCombination as $phaseSetting) {
         $input = new Input([$phaseSetting, $value]);
