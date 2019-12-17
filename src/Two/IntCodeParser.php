@@ -38,11 +38,11 @@ class IntCodeParser
 
     /**
      * @param int[] $intCodes
-     * @return int
+     * @return \Generator
      * @throws InstructionNotFoundException
      * @throws WtfParameterModeException
      */
-    public function execute(array $intCodes): int
+    public function execute(array $intCodes): \Generator
     {
         $intCodePointer = new PointerControl();
         $intCodeGenerator = $this->createIntCodeGenerator($intCodes, $intCodePointer);
@@ -64,6 +64,8 @@ class IntCodeParser
 
             // Provides support for parameter modes.
             $operationParameters = $this->createOperationParameters($intCodes, $parameters, $commandData);
+
+
 
             $programCommand = $operation->execute(...$operationParameters);
 

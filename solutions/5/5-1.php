@@ -14,4 +14,6 @@ $output = new Output();
 $machine = IntCodeParser::versionTwo($input, $output);
 $machine->execute($intCodes);
 
+echo $output->readOutput() . "\n";
+
 echo 'DIAGNOSTICS COMPLETE' . "\n";

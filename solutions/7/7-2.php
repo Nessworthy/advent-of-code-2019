@@ -8,7 +8,7 @@ use Nessworthy\AOC\Seven\PhaseSettingGenerator;
 require_once __DIR__ . '/../../vendor/autoload.php';
 
 $psg = new PhaseSettingGenerator();
-$generator = $psg->generateCombinations([0,1,2,3,4]);
+$generator = $psg->generateCombinations([5,6,7,8,9]);
 $highest = 0;
 
 $intCodes = array_map(fn($i) => (int)$i, explode(',', file_get_contents('input.txt')));

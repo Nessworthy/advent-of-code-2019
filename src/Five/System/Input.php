@@ -5,17 +5,17 @@ namespace Nessworthy\AOC\Five\System;
 class Input
 {
     /**
-     * @var int
+     * @var int[]
      */
-    private int $input;
+    private array $inputs;
 
-    public function __construct(int $input)
+    public function __construct(int ...$inputs)
     {
-        $this->input = $input;
+        $this->inputs = $inputs;
     }
 
     public function getInput(): int
     {
-        return $this->input;
+        return array_shift($this->inputs);
     }
 }

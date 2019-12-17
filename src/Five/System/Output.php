@@ -14,7 +14,6 @@ class Output
      */
     public function sendOutput(int $output): void
     {
-        echo 'OUTPUT: ' . $output . "\n";
         $this->output = $output;
     }
 
